@@ -15006,8 +15006,17 @@ var modals = function modals() {
     });
   };
 
+  var showModalByTime = function showModalByTime(selector, time) {
+    //показ модального окна через 60сек
+    setTimeout(function () {
+      document.querySelector(selector).style.display = "block";
+      document.body.style.overflow = "hidden";
+    }, time);
+  };
+
   bindModal(".popup_engineer_btn", ".popup_engineer", ".popup_engineer .popup_close");
   bindModal(".phone_link", ".popup", ".popup .popup_close");
+  showModalByTime(".popup", 60000);
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (modals);
