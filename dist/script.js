@@ -17960,12 +17960,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var forms = function forms() {
-  var form = document.querySelectorAll('form'),
-      inputs = document.querySelectorAll('input'),
-      phoneInputs = document.querySelectorAll('input[name="user_phone"]');
+  var form = document.querySelectorAll('.form');
+  var inputs = document.querySelectorAll('.form_input');
+  var phoneInputs = document.querySelectorAll('input[name="user_phone"]');
   phoneInputs.forEach(function (item) {
+    //валидация инпута phone
     item.addEventListener('input', function () {
-      item.value = item.value.replace(/\D/, '');
+      item.value = item.value.replace(/\D/, ''); //удаляем все не цифры
     });
   });
   var message = {
@@ -17983,7 +17984,7 @@ var forms = function forms() {
             document.querySelector('.status').textContent = message.loading;
             _context.next = 3;
             return regeneratorRuntime.awrap(fetch(url, {
-              method: "POST",
+              method: 'POST',
               body: data
             }));
 
@@ -18003,7 +18004,7 @@ var forms = function forms() {
     });
   };
 
-  var clearInputs = function clearInputs() {
+  var cleareInput = function cleareInput() {
     inputs.forEach(function (item) {
       item.value = '';
     });
@@ -18014,15 +18015,15 @@ var forms = function forms() {
       e.preventDefault();
       var statusMessage = document.createElement('div');
       statusMessage.classList.add('status');
-      item.appendChild(statusMessage);
+      item.append(statusMessage);
       var formData = new FormData(item);
       postData('assets/server.php', formData).then(function (res) {
-        console.log(res);
+        console, log(res);
         statusMessage.textContent = message.success;
       }).catch(function () {
         return statusMessage.textContent = message.failure;
       }).finally(function () {
-        clearInputs();
+        cleareInput();
         setTimeout(function () {
           statusMessage.remove();
         }, 5000);

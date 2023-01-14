@@ -1,6 +1,13 @@
 const forms =  () => {
     const form = document.querySelectorAll('.form');
-    const input = document.querySelectorAll('.form_input');
+    const inputs = document.querySelectorAll('.form_input');
+    const phoneInputs  = document.querySelectorAll('input[name="user_phone"]');
+
+    phoneInputs.forEach((item) => {                                           //валидация инпута phone
+        item.addEventListener('input', () => {
+            item.value = item.value.replace(/\D/, '');                        //удаляем все не цифры
+        });
+    });
 
     const message = {
         loading: 'Загрузка...',
@@ -18,7 +25,7 @@ const forms =  () => {
     };
 
     const cleareInput = () => {
-        input.forEach( (item) => {
+        inputs.forEach( (item) => {
             item.value = '';
         })
     }
