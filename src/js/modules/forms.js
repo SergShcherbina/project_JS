@@ -1,16 +1,13 @@
-const forms =  () => {
+import checkNumInputs from "./checkNumInputs";
+
+const forms =  (state) => {
     const form = document.querySelectorAll('.form');
     const inputs = document.querySelectorAll('.form_input');
-    const phoneInputs  = document.querySelectorAll('input[name="user_phone"]');
 
-    phoneInputs.forEach((item) => {                                           //валидация инпута phone
-        item.addEventListener('input', () => {
-            item.value = item.value.replace(/\D/, '');                        //удаляем все не цифры
-        });
-    });
+    checkNumInputs('input[name="user_phone"]');
 
     const message = {
-        loading: 'Загрузка...',
+        loading: 'Загрузка...', 
         success: 'Спасибо! Скоро мы с вами свяжемся',
         failure: 'Что-то пошло не так...'
     };
@@ -39,6 +36,12 @@ const forms =  () => {
             item.append(statusMessage);
 
             const formData = new FormData(item);
+
+            if(item.getAttribute('data-calc') === 'end') {                        //если последняя форма (имеет атрибут end)
+                for(let key in state) {
+                    form.data.append(key, state[key]);                            //апендим туда данные
+                }
+            }
 
             postData('assets/server.php', formData)
                 .then(res => {
