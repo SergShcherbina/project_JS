@@ -37,9 +37,9 @@ const forms =  (state) => {
 
             const formData = new FormData(item);
 
-            if(item.getAttribute('data-calc') === 'end') {                        //если последняя форма (имеет атрибут end)
+            if(item.getAttribute('data-calc') === 'end') {                        //если это последняя форма (имеет атрибут end)
                 for(let key in state) {
-                    form.data.append(key, state[key]);                            //апендим туда данные
+                    form.data.append(key, state[key]);                            //апендим в FormData данные из переменной (modalState => state)
                 }
             }
 
