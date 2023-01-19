@@ -33,6 +33,8 @@ const timer = (id, deadline) => {
             seconds = timer.querySelector('#seconds'),
             timerInterval = setInterval(updateClock, 1000);
 
+        updateClock();                                               //вызываем чтобы значения не прагали при загрузке страницы
+
         function updateClock() {
             const t = getTimeRemaining(endtime);
 

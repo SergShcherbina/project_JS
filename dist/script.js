@@ -17920,6 +17920,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/forms */ "./src/js/modules/forms.js");
 /* harmony import */ var _modules_changeModalState__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/changeModalState */ "./src/js/modules/changeModalState.js");
 /* harmony import */ var _modules_timer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/timer */ "./src/js/modules/timer.js");
+/* harmony import */ var _modules_images__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/images */ "./src/js/modules/images.js");
+
 
 
 
@@ -17938,6 +17940,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
   Object(_modules_forms__WEBPACK_IMPORTED_MODULE_3__["default"])(modalState);
   Object(_modules_timer__WEBPACK_IMPORTED_MODULE_5__["default"])('.container1', deadline);
+  Object(_modules_images__WEBPACK_IMPORTED_MODULE_6__["default"])();
 });
 
 /***/ }),
@@ -18152,6 +18155,51 @@ var forms = function forms(state) {
 
 /***/ }),
 
+/***/ "./src/js/modules/images.js":
+/*!**********************************!*\
+  !*** ./src/js/modules/images.js ***!
+  \**********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var images = function images() {
+  var workSection = document.querySelector('.works'); //родительский контейнер для делигирования
+
+  var imgPopup = document.createElement('div'); //создали контейнер для popup
+
+  var bigImage = document.createElement('img'); //создаем картинку для вставки в нее изображения
+
+  imgPopup.classList.add('popup');
+  workSection.append(imgPopup);
+  imgPopup.style.cssText = "justify-content: center; align-items: center; display: none;";
+  bigImage.style.height = '80%';
+  imgPopup.append(bigImage);
+  workSection.addEventListener('click', function (e) {
+    //вешаем обработчик на род контейнер
+    e.preventDefault();
+
+    if (e.target && e.target.classList.contains('preview')) {
+      //если таргет совпадает с классом картинки
+      imgPopup.style.display = "flex";
+      imgPopup.style.overflow = 'hidden';
+      var path = e.target.parentNode.getAttribute('href'); //получаем путь к родителю таргет 
+
+      bigImage.setAttribute('src', path); //записываем тот путь в картинку popup
+    }
+
+    if (e.target && e.target.matches('.popup')) {
+      //если таргет совпадает с классом popup
+      imgPopup.style.display = 'none';
+    }
+  });
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (images);
+
+/***/ }),
+
 /***/ "./src/js/modules/modals.js":
 /*!**********************************!*\
   !*** ./src/js/modules/modals.js ***!
@@ -18321,6 +18369,7 @@ var timer = function timer(id, deadline) {
         minutes = timer.querySelector('#minutes'),
         seconds = timer.querySelector('#seconds'),
         timerInterval = setInterval(updateClock, 1000);
+    updateClock(); //вызываем чтобы значения не прагали при загрузке страницы
 
     function updateClock() {
       var t = getTimeRemaining(endtime);
